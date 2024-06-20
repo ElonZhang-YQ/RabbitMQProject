@@ -6,7 +6,7 @@ spring:
   ## 和application平级，而不是在下级或者上级
   rabbitmq:
     # IP
-    host: 192.168.31.75
+    host: 192.168.31.77
     # 端口
     port: 5672
     # 用户名

@@ -1,5 +1,6 @@
 package com.ez.springboot.rabbitmq.messageproducer.controller;
 
+import com.ez.springboot.rabbitmq.messageproducer.producer.DeadLetterProducer;
 import com.ez.springboot.rabbitmq.messageproducer.producer.DirectMessageProducer;
 import com.ez.springboot.rabbitmq.messageproducer.producer.RoutingMessageProducer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ public class MessageController {
     private DirectMessageProducer directMessageProducer;
     @Autowired
     private RoutingMessageProducer routingMessageProducer;
+    @Autowired
+    private DeadLetterProducer deadLetterProducer;
 
     /**
      * 只绑定queue的direct消息
@@ -96,5 +99,17 @@ public class MessageController {
     @RequestMapping("/routingHeadersDiff")
     public void sendROutingHeadersMessageDiff(String message) {
         routingMessageProducer.sendRoutingHeadersMessageDiff(message);
+    }
+
+    /**
+     * 测试发送死信是否成功
+     * @param message
+     */
+    @RequestMapping("/deadLetter")
+    public void sendDeadLetterMessage(String message) {
+
+        for (int i = 0; i <= 10; i++) {
+            deadLetterProducer.sendDeadLetterMessage(message);
+        }
     }
 }
